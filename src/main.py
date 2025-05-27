@@ -5,7 +5,10 @@ import requests
 from flask import Flask, request, jsonify, render_template, send_from_directory
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
-import openai
+
+# 20250527
+# import openai
+from openai import OpenAI
 
 # Configuração do caminho para importações
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
@@ -236,6 +239,8 @@ def analyze_image_with_openai(image_url):
 		        # model="gpt-4.5-preview",
 		        # model="gpt-4o",                   
             print("Tentando usar a versão mais recente da API OpenAI")
+            
+            '''
             response = openai.ChatCompletion.create(
                 model="gpt-4.5-preview",
                 messages=[
@@ -248,7 +253,19 @@ def analyze_image_with_openai(image_url):
                     }
                 ],
                 max_tokens=1000
-            )
+            )   
+            '''
+            client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+				    response = client.chat.completions.create(
+				    model="gpt-4.5-preview",
+				    messages=[
+				        {"role": "user", "content": [
+				            {"type": "text", "text": prompt},
+				            {"type": "image_url", "image_url": {"url": image_url}}
+				        ]}
+				    ],
+				    max_tokens=1000
+						)
             
             # Extrair a resposta
             if hasattr(response, 'choices') and len(response.choices) > 0:
