@@ -7,8 +7,8 @@ from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
 
 # 20250527
-# import openai
-from openai import OpenAI
+import openai
+# from openai import OpenAI
 
 # Configuração do caminho para importações
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
@@ -241,7 +241,6 @@ def analyze_image_with_openai(image_url):
             print("Tentando usar a versão mais recente da API OpenAI")
             
             # 20250527
-            '''
             response = openai.ChatCompletion.create(
                 model="gpt-4.5-preview",
                 messages=[
@@ -255,6 +254,7 @@ def analyze_image_with_openai(image_url):
                 ],
                 max_tokens=1000
             )   
+            
             '''
             # 20250527
             client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
@@ -268,7 +268,7 @@ def analyze_image_with_openai(image_url):
 				    ],
 				    max_tokens=1000
 						)
-            
+            '''
             # Extrair a resposta
             if hasattr(response, 'choices') and len(response.choices) > 0:
                 if hasattr(response.choices[0], 'message') and hasattr(response.choices[0].message, 'content'):
@@ -840,4 +840,6 @@ if __name__ == '__main__':
     print(f"  PINATA_API_KEY: {'Configurada' if os.getenv('PINATA_API_KEY') else 'Não configurada'}")
     print(f"  PINATA_SECRET_KEY: {'Configurada' if os.getenv('PINATA_SECRET_KEY') else 'Não configurada'}")
     print(f"  OPENAI_API_KEY: {'Configurada' if os.getenv('OPENAI_API_KEY') else 'Não configurada'}")
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # 20250527
+    #app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
