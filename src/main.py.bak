@@ -240,7 +240,6 @@ def analyze_image_with_openai(image_url):
 		        # model="gpt-4o",                   
             print("Tentando usar a versão mais recente da API OpenAI")
             
-            # 20250527
             '''
             response = openai.ChatCompletion.create(
                 model="gpt-4.5-preview",
@@ -256,7 +255,6 @@ def analyze_image_with_openai(image_url):
                 max_tokens=1000
             )   
             '''
-            # 20250527
             client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 				    response = client.chat.completions.create(
 				    model="gpt-4.5-preview",
