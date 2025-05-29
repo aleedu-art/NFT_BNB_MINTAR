@@ -346,7 +346,7 @@
                     <input type="text" class="form-control" id="nft-name" placeholder="Digite o nome do seu NFT">
                 </div>
                 
-                <div class="mb-3 form-text_branco">
+                <div class="mb-3">
                     <label for="nft-description" class="form-label">Descrição Básica</label>
                     <textarea class="form-control" id="nft-description" rows="3" placeholder="Descreva seu NFT (uma análise detalhada será gerada automaticamente)"></textarea>
                 </div>
