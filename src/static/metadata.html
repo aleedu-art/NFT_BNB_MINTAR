@@ -1035,6 +1035,9 @@
             }
         }
 
+
+// --------------------- INICIO  carteira MetaMask
+
         function checkMetaMaskInstallation() {
             if (typeof window.ethereum !== 'undefined') {
                 logDebug('MetaMask detectado');
@@ -1048,6 +1051,8 @@
                     connectWallet();
                 }
             } else {
+              
+                /*
                 logDebug('MetaMask não encontrado');
                 showAlert('MetaMask não encontrado. Por favor instale a extensão MetaMask para usar este aplicativo.', 'warning');
                 
@@ -1056,8 +1061,31 @@
                     logDebug('Dispositivo móvel detectado');
                     showMobileMetaMaskInstructions();
                 }
+                */
+           
+								logDebug('MetaMask não encontrado');
+								    
+								    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+								        logDebug('Dispositivo móvel detectado');
+
+								        // Redireciona para MetaMask Mobile se estiver em celular
+								        //const dappUrl = "seu-site.render.com"; // seu domínio aqui, sem https://
+								        const dappUrl = "https://nft-bnb-mintar.onrender.com"; // seu domínio aqui, sem https://
+								       
+								        const metamaskAppDeepLink = `https://metamask.app.link/dapp/${dappUrl}`;
+								        
+								        showAlert('Abrindo MetaMask Mobile...', 'info');
+								        window.location.href = metamaskAppDeepLink;
+								    } else {
+								        showAlert('MetaMask não encontrado. Por favor instale a extensão MetaMask para usar este aplicativo.', 'warning');
+								    }           
+           
+           
             }
         }
+
+// --------------------- FIM  carteira MetaMask
+
 
         function showMobileMetaMaskInstructions() {
             const alert = document.createElement('div');
@@ -1074,6 +1102,9 @@
             `;
             alertsContainer.appendChild(alert);
         }
+
+
+
 
         async function connectWallet() {
             logDebug('Tentando conectar à carteira MetaMask...');
