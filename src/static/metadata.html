@@ -431,8 +431,12 @@
                     </div>
                     
                     <div class="analysis-item">
-                        <div class="analysis-title">Relação com Signos</div>
-                        <div id="zodiac-relation" class="analysis-content">Carregando análise...</div>
+                    	  <!--  
+                    	  <div class="analysis-title">Relação com Signos</div> 
+                    	  <div id="zodiac-relation" class="analysis-content">Carregando análise...</div>
+                    	  -->
+                        <div class="analysis-title">Relação com Símbolos</div>
+                        <div id="symbol-relation" class="analysis-content">Carregando análise...</div>
                     </div>
                     
                     <div class="analysis-item">
@@ -955,7 +959,7 @@
         const analysisSection = document.getElementById('analysis-section');
         const sentimentAnalysis = document.getElementById('sentiment-analysis');
         const colorPsychology = document.getElementById('color-psychology');
-        const zodiacRelation = document.getElementById('zodiac-relation');
+        const symbolRelation = document.getElementById('symbol-relation');
         const visualLanguage = document.getElementById('visual-language');
         const keywordsContainer = document.getElementById('keywords-container');
         const metadataResult = document.getElementById('metadata-result');
@@ -1325,7 +1329,8 @@
             // Preenche os campos de análise
             sentimentAnalysis.textContent = analysis.sentiment_analysis || 'Não disponível';
             colorPsychology.textContent = analysis.color_psychology || 'Não disponível';
-            zodiacRelation.textContent = analysis.zodiac_relation || 'Não disponível';
+            //zodiacRelation.textContent = analysis.zodiac_relation || 'Não disponível';
+            symbolRelation.textContent = analysis.symbol_relation || 'Não disponível'; // mudou aqui
             visualLanguage.textContent = analysis.visual_language || 'Não disponível';
             
             // Limpa e preenche as palavras-chave

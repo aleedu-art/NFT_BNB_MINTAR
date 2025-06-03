@@ -168,7 +168,7 @@ def pin_to_pinata(filepath, filename):
 def analyze_image():
     """
     Analisa uma imagem IPFS usando a API do OpenAI para extrair sentimentos, 
-    psicologia das cores, signos e códigos de linguagem
+    psicologia das cores, símbolos e códigos de linguagem
     """
     print("Recebendo requisição para análise de imagem")
     data = request.json
@@ -207,7 +207,7 @@ def analyze_image():
 def analyze_image_with_openai(image_url):
     """
     Utiliza a API do OpenAI para analisar uma imagem e extrair informações sobre
-    sentimentos, psicologia das cores, signos e códigos de linguagem
+    sentimentos, psicologia das cores, símbolos e códigos de linguagem
     
     Compatível com diferentes versões da biblioteca OpenAI
     """
@@ -220,13 +220,13 @@ def analyze_image_with_openai(image_url):
 
         1. Análise de sentimentos: Quais emoções e sentimentos esta imagem evoca?
         2. Psicologia das cores: Analise as cores predominantes e seus significados psicológicos.
-        3. Relação com signos: Existe alguma conexão com signos do zodíaco? Explique.
+        3. Relação entre símbolos: Por símbolos, entende-se ícones, formas, imagens ou objetos presentes na arte que carregam significados culturais, históricos, artísticos ou subjetivos.? Explique.	
         4. Códigos de linguagem visual: Quais elementos visuais se destacam e o que eles comunicam?
 
         Formate sua resposta em JSON com as seguintes chaves:
         - sentiment_analysis: texto detalhado sobre os sentimentos evocados
         - color_psychology: análise das cores e seus significados
-        - zodiac_relation: possíveis conexões com signos do zodíaco
+        - symbol_relation: possíveis conexões, significados ou interpretações de símbolos presentes na imagem
         - visual_language: análise dos elementos visuais e sua comunicação
         - keywords: lista de 5-10 palavras-chave que descrevem a imagem
         - attributes: lista de atributos no formato [{{"trait_type": "Emoção Primária", "value": "valor"}}, ...]
@@ -322,7 +322,7 @@ def analyze_image_with_openai(image_url):
                 analysis = {
                     "sentiment_analysis": extract_section(result, "Análise de sentimentos"),
                     "color_psychology": extract_section(result, "Psicologia das cores"),
-                    "zodiac_relation": extract_section(result, "Relação com signos"),
+                    "symbol_relation": extract_section(result, "Relação entre símbolos"),
                     "visual_language": extract_section(result, "Códigos de linguagem visual"),
                     "keywords": extract_keywords(result),
                     "attributes": generate_attributes(result)
@@ -332,7 +332,7 @@ def analyze_image_with_openai(image_url):
             analysis = {
                 "sentiment_analysis": extract_section(result, "Análise de sentimentos"),
                 "color_psychology": extract_section(result, "Psicologia das cores"),
-                "zodiac_relation": extract_section(result, "Relação com signos"),
+                "symbol_relation": extract_section(result, "Relação entre símbolos"),
                 "visual_language": extract_section(result, "Códigos de linguagem visual"),
                 "keywords": extract_keywords(result),
                 "attributes": generate_attributes(result)
@@ -360,7 +360,7 @@ def extract_section(text, section_title):
             return "Informação não disponível"
         
         # Procura pelo próximo título de seção ou fim do texto
-        next_section_titles = ["Análise de sentimentos", "Psicologia das cores", "Relação com signos", "Códigos de linguagem visual", "Palavras-chave", "Atributos"]
+        next_section_titles = ["Análise de sentimentos", "Psicologia das cores", "Relação entre símbolos ", "Códigos de linguagem visual", "Palavras-chave", "Atributos"]
         end_idx = len(text)
         
         for title in next_section_titles:
@@ -488,13 +488,13 @@ def generate_attributes(text):
             # Extrai informações das outras seções para criar atributos
             sentiment = extract_section(text, "Análise de sentimentos")
             colors = extract_section(text, "Psicologia das cores")
-            zodiac = extract_section(text, "Relação com signos")
+            symbol = extract_section(text, "Relação entre símbolos ")
             
             # Cria atributos básicos
             attributes = [
                 {"trait_type": "Sentimento Predominante", "value": extract_main_sentiment(sentiment)},
                 {"trait_type": "Cor Principal", "value": extract_main_color(colors)},
-                {"trait_type": "Signo Relacionado", "value": extract_zodiac_sign(zodiac)}
+                {"trait_type": "Símbolos Relacionado", "value": extract_symbol(symbol)}
             ]
         
         return attributes
@@ -551,41 +551,121 @@ def extract_main_color(color_text):
     # Retorno padrão se nenhuma cor for encontrada
     return "Multicolorido"
 
-def extract_zodiac_sign(zodiac_text):
+def extract_symbol(symbol_text):
     """
-    Extrai o signo do zodíaco do texto de relação com signos
+    Extrai símbolos relevantes do texto de relação entre símbolos.
     """
-    # Lista de signos do zodíaco
-    zodiac_signs = [
-        "áries", "aries", "touro", "gêmeos", "gemeos", "câncer", "cancer",
-        "leão", "leo", "virgem", "libra", "escorpião", "escorpiao", 
-        "sagitário", "sagitario", "capricórnio", "capricornio", 
-        "aquário", "aquario", "peixes"
+   
+    # Lista de símbolos para analisar (exemplo, adicione mais conforme seu contexto)
+    
+    '''
+    symbols = [
+        "coração", "estrela", "cruz", "pomba", "olho", "fogo", "água", 
+        "triângulo", "círculo", "quadrado", "lua", "sol", "serpente", 
+        "mão", "relógio", "chave", "borboleta", "máscara"
     ]
+    '''
     
-    zodiac_text = zodiac_text.lower()
+    symbols = [
+	    # Naturais e Universais
+	    "coração",
+	    "estrela",
+	    "olho",
+	    "lua",
+	    "sol",
+	    "flor",
+	    "folha",
+	    "árvore",
+	    "fogo",
+	    "água",
+	    "montanha",
+	    "cavalo",
+	    "gato",
+	    "cachorro",
+	    "peixe",
+	    "pássaro",
+	    "borboleta",
+	    "pena",
+	    "cobra",
+	    "urso",
+	    "leão",
+	    "tigre",
+	    
+	    # Formas e Ícones Gerais
+	    "triângulo",
+	    "círculo",
+	    "quadrado",
+	    "pirâmide",
+	    "cruz",
+	    "ampulheta",
+	    "roda",
+	    "anel",
+	    "estrela de davi",
+	    "yin yang",
+	    "infinito",
+
+	    # Urbanos e Tecnológicos
+	    "carro",
+	    "avião",
+	    "predio",
+	    "ponte",
+	    "óculos",
+	    "relógio",
+	    "telefone",
+	    "computador",
+	    "chip",
+	    "satélite",
+	    "antena",
+	    "robô",
+	    "engrenagem",
+	    "wifi",
+	    "dado",
+
+	    # Místicos e Mitológicos
+	    "máscara",
+	    "olho de hórus",
+	    "dragão",
+	    "fênix",
+	    "tridente",
+	    "unicórnio",
+	    "anjo",
+	    "demônio",
+	    "gárgula",
+	    "grifo",
+	    "cálice",
+
+	    # Religiosos e Espirituais
+	    "mão de fátima",
+	    "paz",
+	    "espada",
+	    "coroa",
+	    "escudo",
+	    "chave",
+	    "vela",
+	    "cristal",
+	    "arco-íris",
+	    "relâmpago",
+	    "escada",
+	    "pomba", # Paz/Espiritualidade
+	    "estrela cadente",
+	    "martelo" # também mitológico (Thor)
+		]
+
+        
     
-    # Procura por signos no texto
-    for sign in zodiac_signs:
-        if sign in zodiac_text:
-            # Mapeamento para nomes corretos com acentuação
-            sign_mapping = {
-                "aries": "Áries", "áries": "Áries",
-                "touro": "Touro",
-                "gemeos": "Gêmeos", "gêmeos": "Gêmeos",
-                "cancer": "Câncer", "câncer": "Câncer",
-                "leo": "Leão", "leão": "Leão",
-                "virgem": "Virgem",
-                "libra": "Libra",
-                "escorpiao": "Escorpião", "escorpião": "Escorpião",
-                "sagitario": "Sagitário", "sagitário": "Sagitário",
-                "capricornio": "Capricórnio", "capricórnio": "Capricórnio",
-                "aquario": "Aquário", "aquário": "Aquário",
-                "peixes": "Peixes"
-            }
-            return sign_mapping.get(sign, sign.capitalize())
+    symbol_text = symbol_text.lower()
+    found_symbols = []
     
-    # Retorno padrão se nenhum signo for encontrado
+    for symbol in symbols:
+        if symbol in symbol_text:
+            found_symbols.append(symbol.capitalize())
+    
+    if found_symbols:
+        return found_symbols
+    else:
+        return ["Não identificado"]  # Para manter a compatibilidade
+    
+    # Retorno padrão se nenhum símbolo for encontrado
     return "Não identificado"
 
 @app.route('/api/create-metadata', methods=['POST'])
@@ -638,8 +718,8 @@ def create_metadata():
         if 'color_psychology' in image_analysis:
             enriched_description += f"\n\n**Psicologia das Cores:**\n{image_analysis['color_psychology']}"
         
-        if 'zodiac_relation' in image_analysis:
-            enriched_description += f"\n\n**Relação com Signos:**\n{image_analysis['zodiac_relation']}"
+        if 'symbol_relation' in image_analysis:
+            enriched_description += f"\n\n**Relação entre símbolos :**\n{image_analysis['symbol_relation']}"
         
         if 'visual_language' in image_analysis:
             enriched_description += f"\n\n**Linguagem Visual:**\n{image_analysis['visual_language']}"
@@ -758,8 +838,8 @@ def create_metadata_only():
         if 'color_psychology' in image_analysis:
             enriched_description += f"\n\n**Psicologia das Cores:**\n{image_analysis['color_psychology']}"
         
-        if 'zodiac_relation' in image_analysis:
-            enriched_description += f"\n\n**Relação com Signos:**\n{image_analysis['zodiac_relation']}"
+        if 'symbol_relation' in image_analysis:
+            enriched_description += f"\n\n**Relação entre símbolos :**\n{image_analysis['symbol_relation']}"
         
         if 'visual_language' in image_analysis:
             enriched_description += f"\n\n**Linguagem Visual:**\n{image_analysis['visual_language']}"
